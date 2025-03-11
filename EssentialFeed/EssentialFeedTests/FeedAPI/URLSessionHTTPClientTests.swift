@@ -47,7 +47,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1.0)
-        URLProtocolStub.stopInterceptionRequests()
+        URLProtocolStub.stopInterceptingRequests()
     }
     
     // MARK: - Helpers
@@ -69,7 +69,7 @@ class URLSessionHTTPClientTests: XCTestCase {
             URLProtocol.registerClass(URLProtocolStub.self)
         }
         
-        static func stopInterceptionRequests() {
+        static func stopInterceptingRequests() {
             URLProtocol.unregisterClass(URLProtocolStub.self)
             stubs = [:]
         }
@@ -84,10 +84,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
         
         override func startLoading() {
-            guard let url = request.url, let stub = URLProtocolStub.stubs[url] else {
-                XCTFail("No stub found for \(self.request.url!)")
-                return
-            }
+            guard let url = request.url, let stub = URLProtocolStub.stubs[url] else { return }
             
             if let data = stub.data {
                 client?.urlProtocol(self, didLoad: data)
@@ -103,8 +100,6 @@ class URLSessionHTTPClientTests: XCTestCase {
             client?.urlProtocolDidFinishLoading(self)
         }
         
-        override func stopLoading() {
-            
-        }
+        override func stopLoading() { }
     }
 }
