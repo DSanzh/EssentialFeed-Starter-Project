@@ -1,0 +1,1 @@
+[![iOS starter workflow](https://github.com/DSanzh/EssentialFeed-Starter-Project/actions/workflows/ios.yml/badge.svg?branch=master)](https://github.com/DSanzh/EssentialFeed-Starter-Project/actions/workflows/ios.yml)
